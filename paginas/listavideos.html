@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lista de Videos</title>
+</head>
+<body>
+
+<h1>Lista de Videos</h1>
+
+<input type="text" id="buscador" placeholder="Buscar por título">
+<ul id="listaVideos"></ul>
+
+<script>
+  // Array de videos
+  var videos = [
+    { titulo: "Video 1", url: "https://www.youtube.com/watch?v=video1" },
+    { titulo: "Video 2", url: "https://www.youtube.com/watch?v=video2" },
+    { titulo: "Video 3", url: "https://www.youtube.com/watch?v=video2" },
+    { titulo: "Video 4", url: "https://www.youtube.com/watch?v=video4" }
+  ];
+
+  // Obtener el elemento del buscador y la lista
+  var buscador = document.getElementById("buscador");
+  var listaVideos = document.getElementById("listaVideos");
+
+  // Función para renderizar la lista de videos
+  function renderizarLista(videosMostrados) {
+    // Limpiar la lista antes de renderizar de nuevo
+    listaVideos.innerHTML = "";
+
+    // Recorrer los videos mostrados y agregar cada video a la lista
+    videosMostrados.forEach(function(video) {
+      var listItem = document.createElement("li");
+      var link = document.createElement("a");
+
+      // Configurar el enlace con el título y la URL del video
+      link.href = video.url;
+      link.textContent = video.titulo;
+
+      // Agregar el enlace al elemento de la lista
+      listItem.appendChild(link);
+
+      // Agregar el elemento de la lista al contenedor de la lista
+      listaVideos.appendChild(listItem);
+    });
+  }
+
+  // Evento de cambio en el buscador
+  buscador.addEventListener("input", function() {
+    var terminoBusqueda = buscador.value.toLowerCase();
+
+    // Filtrar los videos en función del término de búsqueda
+    var videosFiltrados = videos.filter(function(video) {
+      return video.titulo.toLowerCase().includes(terminoBusqueda);
+    });
+
+    // Renderizar la lista de videos filtrados
+    renderizarLista(videosFiltrados);
+  });
+
+  // Renderizar la lista completa al cargar la página
+  renderizarLista(videos);
+</script>
+
+</body>
+</html>
